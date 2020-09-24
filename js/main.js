@@ -28,9 +28,9 @@ const togglePopup = (popup, btnPopup) => {
 			}
 		};
 	//открытие модального окна
-	btnPopup.forEach((elem) =>
-		elem.addEventListener("click", openAnimatePopup)
-	);
+	btnPopup.forEach((elem) => {
+		elem.addEventListener("click", openAnimatePopup);
+	});
 	//закрытие модального окна
 	popup.addEventListener("click", (event) => {
 		let target = event.target;
@@ -138,17 +138,14 @@ const tabs = () => {
 	const toggleTabContent = (index) => {
 		for (let i = 0; i < tabContent.length; i++) {
 			if (index === i) {
-				tab[i].style.display = 'block';
 				tabContent[i].style.display = 'block';
 			} else {
-				tab[i].classList.remove("active");
 				tabContent[i].style.display = 'none';
 			}
 		}
 	};
 	tabHeader.forEach((elem) => {
 		elem.addEventListener("click", (event) => {
-			event.preventDefault();
 			let target = event.target;
 			target = target.closest(".panel-heading");
 			if (target) {
@@ -164,6 +161,68 @@ const tabs = () => {
 tabs();
 
 const calc = () => {
-
+	const calc = document.getElementById('accordion'),
+		checkbox = calc.querySelector('input[type=checkbox]'),
+		nextBtn = calc.querySelectorAll('a.button.construct-btn'),
+		tabContent = document.querySelectorAll("[role=tabpanel]"),
+		secondWell = document.querySelectorAll('#collapseTwo>div.panel-body>div'),
+		calcResult = document.getElementById('calc-result');
+	secondWell.forEach((item, index) => {
+		if (index > 2) {
+			item.style.display = 'none';
+		}
+	});
+	calc.addEventListener("change", (e) => {
+		if (e.target.matches(".form-control")) {
+			countSum();
+		}
+	});
+	const nextStep = () => {
+		nextBtn.forEach((item, index) => {
+			item.addEventListener('click', () => {
+				tabContent[index + 1].style.display = 'block';
+			});
+		});
+	};
+	checkbox.addEventListener('change', (e) => {
+		if (e.target.checked) {
+			// Checkbox is checked..
+			secondWell.forEach((item, index) => {
+				if (index > 2) {
+					item.style.display = 'none';
+				}
+			});
+			const cams = 10000;
+			countSum(cams);
+		} else {
+			// Checkbox is not checked..
+			secondWell.forEach((item, index) => {
+				if (index > 2) {
+					item.style.display = 'block';
+				}
+			});
+			const cams = 20000;
+			countSum(cams);
+		}
+	});
+	nextStep();
+	const countSum = (cams = 10000) => {
+		calcResult.value = cams;
+		console.log('1');
+	};
+	countSum();
 };
 calc();
+
+const more = () => {
+	const moreBtn = document.querySelector('button.add-sentence-btn');
+	moreBtn.addEventListener('click', () => {
+		const otherBlocks = document.querySelectorAll('.col-xs-12.col-sm-6.col-md-4');
+		otherBlocks.forEach((item) => {
+			console.log(item);
+			item.classList.remove('hidden', 'visible-sm-block');
+		});
+		moreBtn.style.display = 'none';
+	});
+};
+more();
