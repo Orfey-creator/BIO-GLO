@@ -1,8 +1,6 @@
-const togglePopup = () => {
+const togglePopup = (popup, btnPopup) => {
 	let animatePopupInterval;
 	let n = 0;
-	const popup = document.querySelector(".popup-call"),
-		btnPopup = document.querySelectorAll(".call-btn");
 	popup.style.display = 'none';
 	//анимация открытия модального окна
 	const openAnimatePopup = function() {
@@ -46,7 +44,10 @@ const togglePopup = () => {
 		}
 	});
 };
-togglePopup();
+togglePopup(document.querySelector(".popup-call"), document.querySelectorAll(".call-btn"));
+togglePopup(document.querySelector(".popup-discount"), document.querySelectorAll(".discount-btn"));
+togglePopup(document.querySelector(".popup-check"), document.querySelectorAll(".check-btn"));
+togglePopup(document.querySelector(".popup-consultation"), document.querySelectorAll(".director-btn"));
 
 const sendForm = () => {
 	const errorMessage = "Что то пошло не так...",
