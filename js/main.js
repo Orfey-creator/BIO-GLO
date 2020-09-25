@@ -57,8 +57,29 @@ const sendForm = () => {
 	statusMessage.style.cssText = "font-size: 2rem";
 	statusMessage.id = "stat-message";
 	//форма
+	const postData = (body) => fetch("server.php", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(body),
+		credentials: 'include',
+	});
+	const clearForms = () => {
+		const clear = document.querySelectorAll(".row>div>input");
+		const clearModal = document.querySelectorAll("form>div>input");
+		const clearAll = [...clear, ...clearModal];
+		clearAll.forEach((elem) => {
+			elem.value = "";
+		});
+		const statMessage = document.querySelector("#stat-message");
+		setTimeout(() => {
+			statMessage.parentNode.removeChild(statMessage);
+		}, 3000);
+	};
+
 	document.querySelector('body').addEventListener("submit", (e) => {
-		if (e.target.closest(".main-form") || e.target.closest(".capture-form") || e.target.closest('.director-form')) {
+		if (e.target.closest(".main-form") || e.target.closest(".capture-form")) {
 
 			e.preventDefault();
 			e.target.append(statusMessage);
@@ -83,27 +104,6 @@ const sendForm = () => {
 		}
 
 	});
-
-	const postData = (body) => fetch("server.php", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(body),
-		credentials: 'include',
-	});
-	const clearForms = () => {
-		const clear = document.querySelectorAll(".row>div>input");
-		const clearModal = document.querySelectorAll("form>div>input");
-		const clearAll = [...clear, ...clearModal];
-		clearAll.forEach((elem) => {
-			elem.value = "";
-		});
-		const statMessage = document.querySelector("#stat-message");
-		setTimeout(() => {
-			statMessage.parentNode.removeChild(statMessage);
-		}, 3000);
-	};
 };
 sendForm();
 
@@ -173,50 +173,6 @@ const calc = () => {
 			item.style.display = 'none';
 		}
 	});
-	calc.addEventListener("change", (e) => {
-		if (e.target.matches(".form-control")) {
-			const optionValue = parseFloat(e.target.value);
-			countSum(optionValue);
-		}
-	});
-	const nextStep = () => {
-		nextBtn.forEach((item, index) => {
-			item.addEventListener('click', () => {
-				tabContent[index + 1].style.display = 'block';
-			});
-		});
-	};
-	checkbox.addEventListener('change', (e) => {
-		if (e.target.checked) {
-			// Checkbox is checked..
-			secondWell.forEach((item, index) => {
-				if (index > 2) {
-					item.style.display = 'none';
-				}
-			});
-			countSum();
-		} else {
-			// Checkbox is not checked..
-			secondWell.forEach((item, index) => {
-				if (index > 2) {
-					item.style.display = 'inline-block';
-				}
-			});
-			countSum();
-		}
-	});
-	checkbox2.addEventListener('change', (e) => {
-		if (e.target.checked) {
-			// Checkbox is checked..
-			countSum();
-		} else {
-			// Checkbox is not checked..
-			countSum();
-		}
-	});
-
-	nextStep();
-
 	const countSum = () => {
 		const select = calc.querySelectorAll(".form-control.expand");
 		let total = 0,
@@ -272,6 +228,48 @@ const calc = () => {
 		}
 		calcResult.value = total;
 	};
+	calc.addEventListener("change", (e) => {
+		if (e.target.matches(".form-control")) {
+			const optionValue = parseFloat(e.target.value);
+			countSum(optionValue);
+		}
+	});
+	const nextStep = () => {
+		nextBtn.forEach((item, index) => {
+			item.addEventListener('click', () => {
+				tabContent[index + 1].style.display = 'block';
+			});
+		});
+	};
+	checkbox.addEventListener('change', (e) => {
+		if (e.target.checked) {
+			// Checkbox is checked..
+			secondWell.forEach((item, index) => {
+				if (index > 2) {
+					item.style.display = 'none';
+				}
+			});
+			countSum();
+		} else {
+			// Checkbox is not checked..
+			secondWell.forEach((item, index) => {
+				if (index > 2) {
+					item.style.display = 'inline-block';
+				}
+			});
+			countSum();
+		}
+	});
+	checkbox2.addEventListener('change', (e) => {
+		if (e.target.checked) {
+			// Checkbox is checked..
+			countSum();
+		} else {
+			// Checkbox is not checked..
+			countSum();
+		}
+	});
+	nextStep();
 	countSum();
 };
 calc();
@@ -281,7 +279,6 @@ const more = () => {
 	moreBtn.addEventListener('click', () => {
 		const otherBlocks = document.querySelectorAll('.col-xs-12.col-sm-6.col-md-4');
 		otherBlocks.forEach((item) => {
-			console.log(item);
 			item.classList.remove('hidden', 'visible-sm-block');
 		});
 		moreBtn.style.display = 'none';
