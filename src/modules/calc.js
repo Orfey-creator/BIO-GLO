@@ -35,7 +35,7 @@ const calc = () => {
 			if (parseFloat(select[1].value) === 3) {
 				total *= 1.5;
 			}
-			checkbox2.checked ? total += firstCost * 0.1 : total *= 1;
+			checkbox2.checked ? total *= 1.1 : total *= 1;
 		} else { //если двухкамерный
 			total = camOne + camTwo;
 			firstCost = camOne + camTwo;
@@ -64,7 +64,7 @@ const calc = () => {
 			total = sumFirstCam + sumSecondtCam;
 			checkbox2.checked ? total *= 1.2 : total *= 1;
 		}
-		calcResult.value = total;
+		calcResult.value = Math.round(total);
 	};
 	calc.addEventListener("change", (e) => {
 		if (e.target.matches(".form-control")) {
