@@ -1,5 +1,5 @@
 const sendForm = () => {
-	const body = {};
+	let body = {};
 	const errorMessage = "Что то пошло не так...",
 		loadMessage = "Загрузка...",
 		successMessage = "Спасибо! Мы с вами свяжемся",
@@ -70,10 +70,12 @@ const sendForm = () => {
 					}
 					statusMessage.textContent = successMessage;
 					clearForms();
+					body = {};
 				})
 				.catch((error) => {
 					statusMessage.textContent = errorMessage;
 					console.error(error);
+					body = {};
 				});
 		}
 
