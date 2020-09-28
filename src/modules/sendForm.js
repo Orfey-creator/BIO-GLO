@@ -38,12 +38,12 @@ const sendForm = () => {
 	document.querySelector("button.construct-btn.call-btn").addEventListener('click', () => {
 		if (inputCatch[0].value || inputCatch[1]) {
 			checkbox.checked ? body.cams = '1' : body.cams = '2';
-			body.diameterFirst = select[0].value;
-			body.circleFirst = select[1].value;
+			body.diameter_first = select[0].value;
+			body.circle_first = select[1].value;
 			if (checkbox2.checked) {
 				body.bottom = true;
-				body.diameterTwo = select[2].value;
-				body.circleTwo = select[3].value;
+				body.diameter_two = select[2].value;
+				body.circle_two = select[3].value;
 			} else body.bottom = false;
 			body.distance_home = inputCatch[0].value;
 			body.calc_ressult = inputCatch[1].value;
