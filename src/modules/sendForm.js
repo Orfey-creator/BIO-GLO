@@ -31,11 +31,20 @@ const sendForm = () => {
 		"input[name=user_quest], #calc-result, #collapseFour>.panel-body>input"
 	);
 
-	const calcOut = document.querySelector("#collapseFour>.panel-body>button");
-	calcOut.id = "calcOut";
-	calcOut.type = "submit";
+	const calcOut = document.querySelector("#collapseFour>.panel-body>button"),
+		checkbox = document.querySelector('input[type=checkbox]'),
+		checkbox2 = document.getElementById('myonoffswitch-two'),
+		select = document.querySelectorAll(".form-control.expand");
 	document.querySelector("button.construct-btn.call-btn").addEventListener('click', () => {
 		if (inputCatch[0].value || inputCatch[1]) {
+			checkbox.checked ? body.cams = '1' : body.cams = '2';
+			body.diameterFirst = select[0].value;
+			body.circleFirst = select[1].value;
+			if (checkbox2.checked) {
+				body.bottom = true;
+				body.diameterTwo = select[2].value;
+				body.circleTwo = select[3].value;
+			} else body.bottom = false;
 			body.distance_home = inputCatch[0].value;
 			body.calc_ressult = inputCatch[1].value;
 		}
@@ -58,11 +67,6 @@ const sendForm = () => {
 			formData.forEach((value, key) => {
 				body[key] = value;
 			});
-
-
-			// inputCatch.forEach((value, key) => {
-			// 	body[key] = value;
-			// });
 			postData(body)
 				.then((response) => {
 					if (response.status !== 200) {

@@ -17,7 +17,7 @@ const togglePopup = (popup, btnPopup) => {
 			}
 		},
 		//анимация закрытия модльного окна
-		closeAnimatePopup = function () {
+		closeAnimatePopup = function() {
 			animatePopupInterval = requestAnimationFrame(closeAnimatePopup);
 			if (n > 0) {
 				n -= 0.05;
@@ -30,6 +30,9 @@ const togglePopup = (popup, btnPopup) => {
 	//открытие модального окна
 	btnPopup.forEach((elem) => {
 		elem.addEventListener("click", openAnimatePopup);
+		elem.addEventListener('click', (e) => {
+			e.preventDefault();
+		});
 	});
 	//закрытие модального окна
 	popup.addEventListener("click", (event) => {

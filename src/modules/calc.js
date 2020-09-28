@@ -75,6 +75,7 @@ const calc = () => {
 	const nextStep = () => {
 		nextBtn.forEach((item, index) => {
 			item.addEventListener('click', () => {
+				tabContent[index].style.display = 'none';
 				tabContent[index + 1].style.display = 'block';
 			});
 		});
