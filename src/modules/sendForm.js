@@ -1,4 +1,5 @@
 const sendForm = () => {
+	const body = {};
 	const errorMessage = "Что то пошло не так...",
 		loadMessage = "Загрузка...",
 		successMessage = "Спасибо! Мы с вами свяжемся",
@@ -15,8 +16,8 @@ const sendForm = () => {
 		credentials: 'include',
 	});
 	const clearForms = () => {
-		const clear = document.querySelectorAll(".row>div>input");
-		const clearModal = document.querySelectorAll("form>div>input");
+		const clear = document.querySelectorAll("form>input, #collapseFour>div>input");
+		const clearModal = document.querySelectorAll("form>span>input");
 		const clearAll = [...clear, ...clearModal];
 		clearAll.forEach((elem) => {
 			elem.value = "";
@@ -33,15 +34,20 @@ const sendForm = () => {
 	const calcOut = document.querySelector("#collapseFour>.panel-body>button");
 	calcOut.id = "calcOut";
 	calcOut.type = "submit";
+	document.querySelector("button.construct-btn.call-btn").addEventListener('click', () => {
+		if (inputCatch[0].value || inputCatch[1]) {
+			body.distance_home = inputCatch[0].value;
+			body.calc_ressult = inputCatch[1].value;
+		}
+	});
 	document.querySelector('button.director-btn.consultation-btn').addEventListener('click', (e) => {
 		e.preventDefault();
+		if (inputCatch[2].value) {
+			body.user_quest = inputCatch[2].value;
+		}
 	});
 
 	document.querySelector('body').addEventListener("submit", (e) => {
-		if (e.target.matches('button.director-btn.consultation-btn')) {
-			e.preventDefault();
-			console.log(e.target);
-		}
 		if (e.target.closest(".main-form") || e.target.closest(".capture-form")) {
 
 			e.preventDefault();
@@ -49,15 +55,6 @@ const sendForm = () => {
 			statusMessage.textContent = loadMessage;
 			const formData = new FormData(e.target);
 
-			const body = {};
-
-			if (inputCatch[0].value || inputCatch[1]) {
-				body.distance_home = inputCatch[0].value;
-				body.calc_ressult = inputCatch[1].value;
-			}
-			if (inputCatch[2].value) {
-				body.user_quest = inputCatch[2].value;
-			}
 			formData.forEach((value, key) => {
 				body[key] = value;
 			});
@@ -81,6 +78,6 @@ const sendForm = () => {
 		}
 
 	});
-	
+
 };
 export default sendForm;
