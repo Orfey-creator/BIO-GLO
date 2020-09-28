@@ -33,8 +33,15 @@ const sendForm = () => {
 	const calcOut = document.querySelector("#collapseFour>.panel-body>button");
 	calcOut.id = "calcOut";
 	calcOut.type = "submit";
+	document.querySelector('button.director-btn.consultation-btn').addEventListener('click', (e) => {
+		e.preventDefault();
+	});
 
 	document.querySelector('body').addEventListener("submit", (e) => {
+		if (e.target.matches('button.director-btn.consultation-btn')) {
+			e.preventDefault();
+			console.log(e.target);
+		}
 		if (e.target.closest(".main-form") || e.target.closest(".capture-form")) {
 
 			e.preventDefault();
@@ -44,7 +51,7 @@ const sendForm = () => {
 
 			const body = {};
 
-			if (inputCatch[0].value) {
+			if (inputCatch[0].value || inputCatch[1]) {
 				body.distance_home = inputCatch[0].value;
 				body.calc_ressult = inputCatch[1].value;
 			}
@@ -74,5 +81,6 @@ const sendForm = () => {
 		}
 
 	});
+	
 };
 export default sendForm;
